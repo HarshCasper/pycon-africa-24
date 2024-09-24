@@ -34,7 +34,7 @@ def wait_for_resized_image(bucket, key, timeout=60, interval=5):
     return False
 
 def test_image_resize():
-    original_image_path = "demo-2/image.png"
+    original_image_path = "demo-1/image.png"
     resized_image_path = "resized-image.png"
     
     # Upload the original image
