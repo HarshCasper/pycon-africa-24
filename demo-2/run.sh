@@ -37,3 +37,5 @@ awslocal s3 cp image.jpg s3://original-images/image.jpg
 
 awslocal s3 ls s3://resized-images
 awslocal s3 ls s3://original-images
+
+awslocal s3 cp s3://resized-images/resized-image.png resized-image.png

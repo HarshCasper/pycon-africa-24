@@ -11,13 +11,8 @@ awslocal sns subscribe \
 
 # Take the previous example
 
-awslocal lambda create-function \
+awslocal lambda update-function-configuration \
     --function-name ImageResizerFunction \
-    --runtime python3.11 \
-    --handler lambda_function.lambda_handler \
-    --zip-file fileb://lambda.zip \
-    --role arn:aws:iam::000000000000:role/lambda-role \
-    --timeout 60 \
     --dead-letter-config TargetArn=arn:aws:sns:us-east-1:000000000000:failed-resize-topic
 
 awslocal lambda put-function-event-invoke-config \
@@ -29,4 +24,4 @@ awslocal lambda put-function-event-invoke-config \
 
 awslocal s3 cp check.txt s3://original-images/check.png
 
-curl curl -s http://localhost.localstack.cloud:4566/_aws/ses
+curl -s http://localhost.localstack.cloud:4566/_aws/ses | jq
