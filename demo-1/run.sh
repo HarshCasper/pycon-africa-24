@@ -21,6 +21,8 @@ awslocal lambda create-function \
     --role arn:aws:iam::000000000000:role/lambda-role \
     --timeout 60
 
+awslocal lambda wait function-active-v2 --function-name ImageResizerFunction
+
 awslocal s3api put-bucket-notification-configuration \
     --bucket original-images \
     --notification-configuration '{
