@@ -40,7 +40,7 @@ jobs:
 
       - name: Deploy on Terraform
         run: |
-          cd demo-5
+          cd demo-4
           tflocal init
           tflocal apply --auto-approve
 
