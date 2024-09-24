@@ -1,0 +1,50 @@
+name: Deploy Terraform stack on GitHub Actions
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    name: Run LocalStack
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.6"
+
+      - name: Set up Python 3.11
+        id: setup-python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.11"
+
+      - name: Start LocalStack
+        run: |
+          pip install localstack awscli-local[ver1]
+          pip install terraform-local
+
+          localstack start -d
+          docker pull public.ecr.aws/lambda/python:3.11
+
+          localstack wait -t 15
+
+          echo "Startup complete"
+
+      - name: Deploy on Terraform
+        run: |
+          cd demo-5
+          tflocal init
+          tflocal apply --auto-approve
+
+      - name: Run tests
+        run: |
+          pip install pytest
+          pytest
