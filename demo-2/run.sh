@@ -11,6 +11,7 @@ docker run --platform linux/x86_64 --rm -v "$PWD":/var/task "public.ecr.aws/sam/
 
 cd libs && zip -r ../lambda.zip . && cd ..
 zip lambda.zip lambda_function.py
+sudo rm -rf libs
 
 awslocal lambda create-function \
     --function-name ImageResizerFunction \
