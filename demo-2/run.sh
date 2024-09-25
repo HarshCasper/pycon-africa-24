@@ -22,6 +22,6 @@ awslocal lambda put-function-event-invoke-config \
 
 # Remember to add the S3 Bucket Notification Configuration
 
-awslocal s3 cp check.txt s3://original-images/check.png
+awslocal s3 cp demo-1/check.txt s3://original-images/check.png
 
 curl -s http://localhost.localstack.cloud:4566/_aws/ses | jq
